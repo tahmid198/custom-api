@@ -3,7 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const users = [
+let users = [
     {
         "first_name":"Tony",
         "last_name":"Stark",
@@ -33,5 +33,13 @@ router.get('/:id', (req, res) =>{
     res.send(foundUser);
 
 });
+
+router.delete('/:id', (req, res) => {
+
+    const {id} = req.params;
+    users = users.filter((user) =>  user.id !== id);
+    res.send(`User with ID ${id} deleted from the database.`);
+
+})
 
 module.exports = router;
