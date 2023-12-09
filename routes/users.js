@@ -42,4 +42,19 @@ router.delete('/:id', (req, res) => {
 
 })
 
+router.patch('/:id', (req, res) => {
+    const { id } = req.params;
+    const { first_name, last_name, alias } = req.body;
+
+    const user = users.find((user) => user.id === id);
+
+    if(first_name) user.first_name = first_name;
+    if(last_name) user.last_name = last_name;
+    if(alias) user.alias = alias;
+    
+    res.send(`User with  id ${id} has been updated`);
+    
+
+})
+
 module.exports = router;
