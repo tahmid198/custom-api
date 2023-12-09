@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 
 const router = express.Router();
@@ -21,7 +22,7 @@ router.post('/', (req, res) => {
     
     const user = req.body;
 
-    users.push(user);
+    users.push({... user, id: uuidv4()});
 
     res.send(`User with the username ${user.first_name} added to the database!`);
 
