@@ -6,7 +6,7 @@
 - [UUID](https://www.npmjs.com/package/uuid) is being used to uniquely identify a json object.
 
 
-### RUN
+### HOW TO RUN
 
 Use `npm start` to start the node.js server configured on port 8080. 
 
@@ -14,7 +14,7 @@ Feel free to use your browser to use the GET request so you can retrive data fro
 
 All other request must be performed using an API client such as Postman or Insomnia.
 
-Alternatively you can also use cURL from your CLI.
+Alternatively, you can also use cURL on your CLI.
 The following are commands using cURL to perform the implemented api requests.
 
 * GET
