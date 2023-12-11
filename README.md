@@ -1,9 +1,11 @@
 ## README
 
 ### DEPENDENCIES
-- [Express.js](https://www.npmjs.com/package/express) is used to simplify the development process of building our RESTful API by providing us a set of features and toold to handle common tasks.
-- [NODEMON](https://www.npmjs.com/package/nodemon) is used for speedy develoment of Node.js, automatically restarting the node application when it detects saved changes, without user having to restart the server manually.
+- [Express.js](https://www.npmjs.com/package/express) is used to simplify the development process of building our RESTful API by providing us a set of features and tools to handle common tasks.
+- [NODEMON](https://www.npmjs.com/package/nodemon) is used for speedy develoment of Node.js, automatically restarting the node application when it detects saved changes, without user having to restart the server manually. Installed as a devDependencie.
 - [UUID](https://www.npmjs.com/package/uuid) is being used to uniquely identify a json object.
+- [Mongoose](https://www.npmjs.com/package/mongoose) is being used for simplified interaction with MongoDB using javascript.
+- [dotenv](https://www.npmjs.com/package/dotenv) is used for loading environment variables from a .env file into process.env.
 
 
 ### HOW TO RUN

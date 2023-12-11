@@ -1,8 +1,27 @@
 const userRoutes = require('./routes/users.js');
+require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 8080;
+const dbName = process.env.MONGODB_DB_NAME;
+const dbUser = process.env.MONGODB_USER;
+const dbPassword = process.env.MONGODB_USER_PASS;
+
+
+
+mongoose.connect(
+    process.env.MONGODB_URI,
+    {
+        dbName: dbName,
+        user: dbUser,
+        pass: dbPassword
+    }
+)
+    .then(() => {
+    console.log('Mongodb connected...')
+})
 
 /**
  * Express does not parse JSON in the body by default
