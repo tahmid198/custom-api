@@ -9,8 +9,6 @@ const dbName = process.env.MONGODB_DB_NAME;
 const dbUser = process.env.MONGODB_USER;
 const dbPassword = process.env.MONGODB_USER_PASS;
 
-
-
 mongoose.connect(
     process.env.MONGODB_URI,
     {
@@ -19,9 +17,25 @@ mongoose.connect(
         pass: dbPassword
     }
 )
-    .then(() => {
-    console.log('Mongodb connected...')
-})
+//     .then(() => {
+//     console.log('Mongodb connected...')
+// })
+
+// database.on('error', (error) => {
+//     console.log(error)
+// })
+
+// database.once('connected', () => {
+//     console.log('Database Connected');
+// })
+
+const database = mongoose.connection;
+
+database.on('error', (error) => console.error(error));
+database.once('connected', () => console.log('Database Connected'));
+
+// Using a single event listener for 'connected' and 'open'
+database.once('open', () => console.log('Mongodb connected...'));
 
 /**
  * Express does not parse JSON in the body by default
