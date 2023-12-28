@@ -14,28 +14,32 @@ mongoose.connect(
     {
         dbName: dbName,
         user: dbUser,
-        pass: dbPassword
+        pass: dbPassword,
+        writeConcern: { w: 'majority' } 
     }
 )
 //     .then(() => {
 //     console.log('Mongodb connected...')
 // })
 
-// database.on('error', (error) => {
-//     console.log(error)
-// })
-
-// database.once('connected', () => {
-//     console.log('Database Connected');
-// })
-
 const database = mongoose.connection;
 
 database.on('error', (error) => console.error(error));
-database.once('connected', () => console.log('Database Connected'));
-
+database.once('connected', () => console.log('Database Connected: ' + database.name));
 // Using a single event listener for 'connected' and 'open'
 database.once('open', () => console.log('Mongodb connected...'));
+
+const firstCollection = database.collection('datas');
+firstCollection.find({})
+.then((resultAsCursor) => resultAsCursor.toArray())
+.then((resultAsArray) => {
+    console.log('Connection test successful!');
+    console.log('Result:', resultAsArray);
+  })
+  .catch((error) => {
+    console.error('Connection test failed:', error);
+  });
+
 
 /**
  * Express does not parse JSON in the body by default
@@ -44,7 +48,7 @@ database.once('open', () => console.log('Mongodb connected...'));
 
 app.use(express.json())
 
-app.use('/users', userRoutes);
+app.use('/api', userRoutes);
 
 app.listen(
     PORT,
@@ -70,3 +74,6 @@ app.post('/tshirt/:id', (req, res) => {
         tshirt: `👕 with your ${logo} and ID of ${id}`,
     });
 });
+
+// Export the mongoose connection
+module.exports = { firstCollection };
