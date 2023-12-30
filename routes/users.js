@@ -1,62 +1,20 @@
-const { getUsers, createUser, getUser, deleteUser, updateUser } = require('../controllers/users.js');
-const Model = require('../models/model.js');
-// const {firstCollection } = require('../index.js');
+const { getDocuments, createDocument, getDocument, deleteDocument, updateDocument } = require('../controllers/users.js');
 
 
 const express = require('express');
 const router = express.Router();
 
-// // all routes here are starting with /users
-// router.get('/', getUsers);
+// all routes here are starting with /api
+router.get('/getAll', getDocuments);
 
-// router.post('/', createUser);
+router.post('/post', createDocument);
 
-// router.get('/:id', getUser);
+router.get('/getOne/:id', getDocument);
 
-// router.delete('/:id', deleteUser)
+router.delete('/delete/:id', deleteDocument)
 
-// router.patch('/:id', updateUser)
+router.patch('/update/:id', updateDocument)
 
-
-
-
-router.post('/post', async (req, res) => {
-    const data = new Model({
-        name: req.body.name,
-        age: req.body.age
-    })
-
-    try {
-        const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
-    }
-    catch (error) {
-        res.status(400).json({message: error.message})
-    }
-})
-
-router.get('/getAll', async (req, res) => {
-    try{
-        const data = await Model.find({});
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-})
-
-
-//Get by ID Method
-router.get('/getOne/:id', async (req, res) => {
-    console.log('test');
-    try{
-        const data = await Model.findById(req.params.id);
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-})
 
 //Update by ID Method
 router.patch('/update/:id', async (req, res) => {

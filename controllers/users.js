@@ -1,54 +1,67 @@
+const Model = require('../models/model.js');
 const { v4: uuidv4 } = require('uuid');
 
-let users = [
-    {
-        "first_name":"Tony",
-        "last_name":"Stark",
-        "alias":"Iron Man"
+
+module.exports.getDocuments = async (req, res) => {
+    try{
+        const data = await Model.find({});
+        res.json(data)
     }
-]
-
-module.exports.getUsers = (req, res) => {
-
-    res.status(200).send(users);
-
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
 }
 
-module.exports.createUser = (req, res) => {
-    
-    const user = req.body;
-    users.push({... user, id: uuidv4()});
-    res.send(`User with the username ${user.first_name} added to the database!`);
+module.exports.createDocument = async (req, res) => {
+    const data = new Model({
+        name: req.body.name,
+        age: req.body.age
+    })
 
+    try {
+        const dataToSave = await data.save();
+        res.status(200).json(dataToSave)
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
 }
 
-module.exports.getUser = (req, res) =>{
-
-    const { id } = req.params;
-    const foundUser = users.find((user) => user.id === id);
-    res.send(foundUser);
-
+module.exports.getDocument = async (req, res) => {
+    console.log('test');
+    try{
+        const data = await Model.findById(req.params.id);
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
 }
 
-module.exports.deleteUser = (req, res) => {
-
-    const {id} = req.params;
-    users = users.filter((user) =>  user.id !== id);
-    res.send(`User with ID ${id} deleted from the database.`);
-
+module.exports.deleteDocument = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await Model.findByIdAndDelete(id)
+        res.send(`Document with ${data.name} has been deleted..`)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
 }
 
-module.exports.updateUser = (req, res) => {
-    const { id } = req.params;
-    const { first_name, last_name, alias } = req.body;
+module.exports.updateDocument = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        const options = { new: true };
 
-    const user = users.find((user) => user.id === id);
+        const result = await Model.findByIdAndUpdate(
+            id, updatedData, options
+        )
 
-    if(first_name) user.first_name = first_name;
-    if(last_name) user.last_name = last_name;
-    if(alias) user.alias = alias;
-    
-    res.send(`User with  id ${id} has been updated`);
-
-
+        res.send(result)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
 }
