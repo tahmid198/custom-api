@@ -20,17 +20,17 @@ Alternatively, you can also use cURL on your CLI.
 The following are commands using cURL to perform the implemented api requests.
 
 * GET
-  > `curl -X GET http://localhost:8080/users/`
+  > `curl -X GET http://localhost:8080/api/getAll`
 
 * POST 
-  > `curl -X POST -H "Content-Type: application/json" -d '{"first_name": "Bruce","last_name":"Wayne","alias":"Batman"}' http://localhost:8080/users/`
+  > `curl -X POST -H "Content-Type: application/json" -d '{"first_name": "Bruce","last_name":"Wayne","alias":"Batman"}' http://localhost:8080/api/post`
 
 * GET with uuid 
-  > `curl -X GET http://localhost:8080/users/4f4a63a7-6634-454a-ba14-87e6bf48c1e2`
+  > `curl -X GET http://localhost:8080/api/getOne/4f4a63a7-6634-454a-ba14-87e6bf48c1e2`
 
 * DELETE with uuid
-  > `url -X DELETE http://localhost:8080/users/094225cf-5fbc-44b1-bf78-6d4f275012c4`
+  > `url -X DELETE http://localhost:8080/api/delete/094225cf-5fbc-44b1-bf78-6d4f275012c4`
 
 * PATCH with uuid
-  > `curl -X PATCH -H "Content-Type: application/json" -d '{"alias":"ROBIN"}' http://localhost:8080/users/f55e4500-2af7-4f4a-962d-e4d80ab1ba7c`
+  > `curl -X PATCH -H "Content-Type: application/json" -d '{"alias":"ROBIN"}' http://localhost:8080/api/update/f55e4500-2af7-4f4a-962d-e4d80ab1ba7c`
 
